@@ -11,17 +11,19 @@ describe("SimpleStorage", function () {
 
   it("should start with a favourite number of 0", async function () {
     const currentNumber = await simpleStorage.retrieve();
+    const expectedValue = "0";
 
-    assert.equal(currentNumber.toString(), "0");
+    assert.equal(currentNumber.toString(), expectedValue);
   });
 
   it("should correctly update when we call store", async function () {
-    const expected = "4";
+    const expectedValue = "4";
 
-    const transactionResponse = await simpleStorage.store(expected);
+    const transactionResponse = await simpleStorage.store(expectedValue);
     // not really needed here
     await transactionResponse.wait(1);
-
-    assert.equal((await simpleStorage.retrieve()).toString(), expected);
+    
+    const currentValue = await simpleStorage.retrieve();
+    assert.equal(currentValue.toString(), expectedValue);
   });
 });
